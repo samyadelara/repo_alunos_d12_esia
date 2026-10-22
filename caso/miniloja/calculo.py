@@ -67,7 +67,19 @@ def _aplicar_taxa(total, uf):
 
 
 def calcular_total(itens, cupom=None, uf="PE"):
-    """Calcula o total do pedido."""
+    """Calcula o total do pedido (contrato: caso/regras.md, R1).
+
+    Ordem (R1.6): subtotal (preço x quantidade) -> desconto do cupom -> frete -> taxa da UF.
+    Cupom desconhecido é ignorado; FRETEGRATIS zera o frete sem descontar; NATAL só vale com
+    MINILOJA_PROMO_NATAL=1. Devolve float com duas casas.
+
+    Divergências conhecidas e MANTIDAS de propósito (ADR-001 da AV2): o frete grátis só vale acima
+    de R$ 200,00 (o contrato pede "maior ou igual") e o arredondamento usa round() de float, não
+    meio para cima (15,645 sai 15,64). Motivo: esta função passou por refatoração pura, protegida por
+    golden master; corrigir muda o comportamento e exige rever o golden e o snapshot
+    test_cenarios_gravados. Os testes em avaliacoes/av2/test_contrato_calculo.py marcam as duas
+    divergências como expectedFailure.
+    """
     # soma dos itens
     total = 0
     for i in itens:
