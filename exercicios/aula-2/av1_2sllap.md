@@ -59,6 +59,6 @@ caso/miniloja/calculo.py | 40 ++++++++++++++++++++++++--------------   (+26/−1
 
 **Limite e condição para rever o escopo:** o golden master só garante que o comportamento atual se manteve, inclusive os erros (`> 200` contra R1.3, `round` contra R1.5), e só nas 29 entradas gravadas. Ele não prova que o código segue o contrato nem cobre entradas fora dessas classes. Para corrigir os erros reportados, rever o comportamento do codigo original e contrstar com o contrato.
 
-**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: ___; tarefa delegada e contexto: ___; trecho aproveitado: ___; minha verificação/intervenção: ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: Claude Code (Opus 5.5); tarefa delegada e contexto: uso o README.md de documentação de miniloja para solicitar explicação sobre o exercício atraves de agente em modo planejamento, com apoio na construção de rascunhos de respostas, que revisei, ajustei e registrei; trecho aproveitado: detalhamento dos enunciados e rascunhos de respostas; minha verificação/intervenção: rodar testes, inspecionar código, revisão de textos. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
 
 **Revisão:** [X] golden master; [X] duas rodadas com números; [X] seis campos; [X] AGENTS.md; [X] até uma página.
