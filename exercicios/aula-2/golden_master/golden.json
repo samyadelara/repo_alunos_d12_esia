@@ -1,0 +1,441 @@
+[
+  {
+    "nome": "cupom: sem cupom",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 118.55
+  },
+  {
+    "nome": "cupom: PROMO10",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "PROMO10",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 108.05
+  },
+  {
+    "nome": "cupom: VIP15",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "VIP15",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 102.8
+  },
+  {
+    "nome": "cupom: FRETEGRATIS",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "FRETEGRATIS",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 105.0
+  },
+  {
+    "nome": "cupom: NATAL campanha ativa",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "NATAL",
+      "uf": "PE"
+    },
+    "natal": true,
+    "saida": 97.55
+  },
+  {
+    "nome": "cupom: NATAL campanha inativa",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "NATAL",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 118.55
+  },
+  {
+    "nome": "cupom: desconhecido",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "XYZ",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 118.55
+  },
+  {
+    "nome": "UF: SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "SP"
+    },
+    "natal": false,
+    "saida": 128.29
+  },
+  {
+    "nome": "UF: RJ",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "RJ"
+    },
+    "natal": false,
+    "saida": 128.79
+  },
+  {
+    "nome": "UF: demais (BA)",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "BA"
+    },
+    "natal": false,
+    "saida": 140.29
+  },
+  {
+    "nome": "cupom x UF: PROMO10, SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "PROMO10",
+      "uf": "SP"
+    },
+    "natal": false,
+    "saida": 117.59
+  },
+  {
+    "nome": "cupom x UF: VIP15, RJ",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "VIP15",
+      "uf": "RJ"
+    },
+    "natal": false,
+    "saida": 112.89
+  },
+  {
+    "nome": "cupom x UF: FRETEGRATIS, demais (BA)",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "FRETEGRATIS",
+      "uf": "BA"
+    },
+    "natal": false,
+    "saida": 108.0
+  },
+  {
+    "nome": "cupom x UF: NATAL ativa, SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "NATAL",
+      "uf": "SP"
+    },
+    "natal": true,
+    "saida": 106.89
+  },
+  {
+    "nome": "cupom x UF: desconhecido, RJ",
+    "args": {
+      "itens": [
+        {
+          "preco": 100,
+          "qtd": 1
+        }
+      ],
+      "cupom": "XYZ",
+      "uf": "RJ"
+    },
+    "natal": false,
+    "saida": 128.79
+  },
+  {
+    "nome": "limite frete: 199.99, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 199.99,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 223.53
+  },
+  {
+    "nome": "limite frete: 200.00, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 50,
+          "qtd": 4
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 223.55
+  },
+  {
+    "nome": "limite frete: 200.01, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 200.01,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 210.01
+  },
+  {
+    "nome": "limite frete: 200.00, demais (BA)",
+    "args": {
+      "itens": [
+        {
+          "preco": 200,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "BA"
+    },
+    "natal": false,
+    "saida": 248.29
+  },
+  {
+    "nome": "desconto x frete: 220 com PROMO10 = 198, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 110,
+          "qtd": 2
+        }
+      ],
+      "cupom": "PROMO10",
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 221.44
+  },
+  {
+    "nome": "desconto x frete: 240 com VIP15 = 204, RJ",
+    "args": {
+      "itens": [
+        {
+          "preco": 120,
+          "qtd": 2
+        }
+      ],
+      "cupom": "VIP15",
+      "uf": "RJ"
+    },
+    "natal": false,
+    "saida": 216.24
+  },
+  {
+    "nome": "desconto x frete: 250 com NATAL ativa = 200, SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 250,
+          "qtd": 1
+        }
+      ],
+      "cupom": "NATAL",
+      "uf": "SP"
+    },
+    "natal": true,
+    "saida": 235.29
+  },
+  {
+    "nome": "desconto x frete: 250 com NATAL inativa, SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 250,
+          "qtd": 1
+        }
+      ],
+      "cupom": "NATAL",
+      "uf": "SP"
+    },
+    "natal": false,
+    "saida": 267.5
+  },
+  {
+    "nome": "desconto x frete: FRETEGRATIS acima de 200, demais (BA)",
+    "args": {
+      "itens": [
+        {
+          "preco": 225.5,
+          "qtd": 1
+        }
+      ],
+      "cupom": "FRETEGRATIS",
+      "uf": "BA"
+    },
+    "natal": false,
+    "saida": 243.54
+  },
+  {
+    "nome": "subtotal: vários itens, SP",
+    "args": {
+      "itens": [
+        {
+          "preco": 150,
+          "qtd": 1
+        },
+        {
+          "preco": 25.5,
+          "qtd": 2
+        }
+      ],
+      "cupom": null,
+      "uf": "SP"
+    },
+    "natal": false,
+    "saida": 215.07
+  },
+  {
+    "nome": "subtotal: quantidade 3 com centavos, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 19.99,
+          "qtd": 3
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 76.51
+  },
+  {
+    "nome": "subtotal: centavos com VIP15, RJ",
+    "args": {
+      "itens": [
+        {
+          "preco": 19.99,
+          "qtd": 3
+        }
+      ],
+      "cupom": "VIP15",
+      "uf": "RJ"
+    },
+    "natal": false,
+    "saida": 76.82
+  },
+  {
+    "nome": "arredondamento: 24.045 exato, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 10.0,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 24.04
+  },
+  {
+    "nome": "arredondamento: 24.255 exato, PE",
+    "args": {
+      "itens": [
+        {
+          "preco": 10.2,
+          "qtd": 1
+        }
+      ],
+      "cupom": null,
+      "uf": "PE"
+    },
+    "natal": false,
+    "saida": 24.26
+  }
+]
