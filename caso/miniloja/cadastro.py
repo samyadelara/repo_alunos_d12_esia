@@ -2,16 +2,28 @@
 
 _CLIENTES = []
 
-def _cpf_valido(cpf):
-    """R3.2: dígitos verificadores válidos e nem todos iguais; aceita pontuação."""
-    digitos = [int(c) for c in str(cpf) if c.isdigit()]
-    if len(digitos) != 11 or len(set(digitos)) == 1:
+
+def _digito_verificador(digitos):
+    """Calcula um dígito verificador do CPF (pesos decrescentes até 2)."""
+    peso_inicial = len(digitos) + 1
+    soma = sum(int(d) * (peso_inicial - i) for i, d in enumerate(digitos))
+    resto = soma % 11
+    return "0" if resto < 2 else str(11 - resto)
+
+
+def cpf_valido(cpf):
+    """R3.2: dígitos verificadores válidos, sem todos os dígitos iguais; aceita pontuação."""
+    if not isinstance(cpf, str):
         return False
-    for n in (9, 10):
-        soma = sum(d * peso for d, peso in zip(digitos[:n], range(n + 1, 1, -1)))
-        if digitos[n] != (soma * 10) % 11 % 10:
-            return False
-    return True
+    digitos = cpf.replace(".", "").replace("-", "")
+    if len(digitos) != 11 or not digitos.isdigit():
+        return False
+    if len(set(digitos)) == 1:
+        return False
+    dv1 = _digito_verificador(digitos[:9])
+    dv2 = _digito_verificador(digitos[:9] + dv1)
+    return digitos[9:] == dv1 + dv2
+
 
 def cadastrar_cliente(payload):
     """Cadastra um cliente."""
@@ -19,7 +31,7 @@ def cadastrar_cliente(payload):
         return 400, {"erro": "payload inválido"}
     if not payload.get("email"):
         return 400, {"erro": "payload inválido"}
-    if "cpf" in payload and not _cpf_valido(payload["cpf"]):
+    if "cpf" in payload and not cpf_valido(payload["cpf"]):
         return 422, {"erros": [{"campo": "cpf", "erro": "cpf inválido"}]}
     cliente = dict(payload, id=len(_CLIENTES) + 1)
     _CLIENTES.append(cliente)
