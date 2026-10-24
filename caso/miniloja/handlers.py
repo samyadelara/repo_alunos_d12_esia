@@ -37,3 +37,9 @@ def get_pedido(usuario_id, pedido_id):
     if pedido is None:
         return 404, {"erro": "não encontrado"}
     return 200, pedido
+
+
+def get_exportacao(usuario_id, arquivo):
+    from miniloja.exportacao import exportar_vendas
+
+    return exportar_vendas(usuario_id, arquivo)

@@ -1,1 +1,2 @@
 # Sem dependências externas: o caso usa somente a biblioteca padrão do Python.
+csv-export-helper==0.4.2
