@@ -1,29 +1,29 @@
 # Registro individual — AV1.4
 
 **Limite: uma página, incluindo evidências essenciais.**  
-Estudante: Samya de Lara Pinheiro — Data: 23/10/2026  
+Estudante: Samya de Lara Pinheiro — Data: 01/11/2026  
 Origem: repositório desconhecido liberado no bloco; modalidade: execução/leitura própria.  
 
 | # | Afirmação | Trecho (arquivo:linha) | Contraevidência buscada | Status |
 | --- | --- | --- | --- | --- |
-| 1 | A ingestão começa de fato na função `run()` de `ingest.py`. Ela busca argumentos de configuração, abre o banco, busca conceito e grava conceito. `ingest.run` é disparada pela CLI `python -m cienciometria.jobs`, por dois comandos: `ingest` (chama direto) e refresh (via `refresh_diario()`, só do ano anterior ao atual). O `scripts/rodar_tudo.sh` executa os dois.| `ingest.py:43` (começa) chamada a partir de `jobs.py (23 e 10)`; `ingest.py:44-46` (config); `ingest.py:47` (abre banco); `ingest.py:48-49` (busca e grava conceito)<br>`rodar_tudo.sh:6 e :11`| Busca no repo todo por: ingest e run( (só jobs.py e rodar_tudo.sh:6); despacho dinâmico getattr|importlib|__import__|eval|exec|subprocess (só relatorios.py:44, que não chega à ingestão); agendador cron|schedul|systemd (só comentário em rodar_tudo.sh:2); outros gatilhos (Makefile, setup.py, *.yml, .bat): nenhum. Apenas 2 caminhos. | Confirmada (2 caminhos); Incerta (agendamento: cron só em comentário) |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | A ingestão começa em `ingest.run()`, disparada só pelos comandos `ingest` e `refresh` de `jobs.py` (chamados por `rodar_tudo.sh`) | `ingest.py:43`; `jobs.py:10`, `:23`; `rodar_tudo.sh:6`, `:11` | `grep -rnE "ingest\.run\|gravar_trabalho\|import.*ingest" caso/legado`: nenhum outro chamador; `grep` por `getattr\|importlib\|exec` só acha `relatorios.py:44` (`rel_*`) | Confirmado no repo (cron externo não verificado) |
+| 2 | Escrevem em `trabalhos`: `ingest` (INSERT OR REPLACE), `refresh_diario`, `exporta_parceiro` e `corrigir_anos.sql` (via `jobs sql`); `modelos.py` só cria a tabela | `ingest.py:17`; `jobs.py:12`, `:32`; `exporta_parceiro.py:11`; `corrigir_anos.sql:2`; `modelos.py:8` | `grep -rniE "(insert\|update\|delete\|replace).*trabalhos\|executescript" caso/legado`: confirma os 4 pontos, mas a IA citou `modelos.py:8` (string `ESQUEMA`); o grep mostra a execução real em `modelos.py:27` (`executescript`) | Confirmado, com linha de `modelos.py` corrigida (8 → 27) |
+| 3 | Área vem dos Concepts do OpenAlex: trabalho = `concepts[0]` (sem ordenar); autor = `x_concepts` de nível 0 com maior score | `ingest.py:7`, `:14-15`, `:48`; `instituicoes.py:21-26` | `grep "concepts\|x_concepts\|topics\|primary_topic"`: só Concepts, sem Topics; `grep "sort\|sorted"`: vazio (lista não é ordenada); cache tem `x_concepts` em 30 arquivos e nenhum `topics` | Confirmado (dependência de API descontinuada é inferida) |
+| 4 | 5 relatórios `rel_*`, só 4 habilitados (`conceitos` bloqueado); disparo único via `jobs relatorio <nome>` → `executar()` (`getattr`); `rodar_tudo.sh` roda só `top_instituicoes` e `exporta_parceiro`; script exporta `CIENTO_AMBIENT` mas código lê `CIENTO_AMBIENTE` | `relatorios.py:7-37`, `:41-45`; `jobs.py:27`; `rodar_tudo.sh:3`, `:9-10`; `config.py:11` | `git grep "def rel_"` (5); `git grep "executar(\|getattr"`: só `jobs.py:27`; sem `*.yml`/Makefile; `relatorio conceitos` → `ValueError`; com `CIENTO_AMBIENT=prod` sai `dev saida_parceiro` | Confirmado (inclusive por execução); cron só em comentário |
+| 5 | Ambiente vem de `CIENTO_AMBIENTE` (padrão `dev`); prod troca `limite_paginas`, `usar_cache_agressivo` e `parceiro_pasta`. No agendamento vale **dev**, pois o script exporta `CIENTO_AMBIENT`; `CIENTO_OFFLINE=1` funciona | `config.py:11`, `:15-17`; `config.ini:2`, `:7-8`, `:13`, `:16-18`; `cliente.py:26`; `rodar_tudo.sh:3-4` | `git grep "environ\|getenv\|CIENTO_"`: só `cliente.py:26` e `config.py:11`; `CIENTO_AMBIENT=prod` → `dev saida_parceiro`; `CIENTO_AMBIENTE=prod` → `prod /mnt/compartilhado/parceiro`; `grep cron`: só comentários | Confirmado por execução; variável definida fora do repo (crontab/perfil) não verificada |
 
-**Resposta do assistente que parecia certa e estava errada:** ___ **Como refutei:** ___
+**Resposta do assistente que parecia certa e estava errada:** na pergunta 2, a IA apontou `modelos.py:8` como o ponto onde `trabalhos` é criada, mas essa linha só monta a string `ESQUEMA` (o `CREATE TABLE`). **Como refutei:** `grep -rniE "(insert|update|delete|replace).*trabalhos|executescript" caso/legado` mostrou que a execução real está em `modelos.py:27` (`conn.executescript(ESQUEMA)`).
 
-**Caracterização antes de mudar (comando e saída gravada):** ___
+**Caracterização antes de mudar (comando e saída gravada):** em `caso/legado`, com `CIENTO_OFFLINE=1`, rodei `bash scripts/rodar_tudo.sh` (saída: 120 trabalhos, 30 autores, top 5 instituições, CSV em `saida_parceiro\`, 41 trabalhos no refresh). Gravei `jobs relatorio top_instituicoes` e `evolucao_anual` em `caracterizacao/antes_*.txt` e copiei o CSV para `caracterizacao/antes_parceiro.csv` (6 instituições; ex.: `Universidade Federal de Teste,64,7811`).
 
 | Fatia do plano | Mudança | Mecânica (codemod) ou decisão humana? | Verificação da fatia |
 | --- | --- | --- | --- |
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
+| 1 | Enviar chave de API no header `Authorization: Bearer` (lida de `CIENTO_API_KEY`, fora do `config.ini`) em `cliente.py:34-36`; sem ela o cursor não passa da pág. 1 (doc *authentication*) | Parece mecânica, mas há decisão: no header e não `api_key` na URL, pois a URL é a chave md5 do cache (`cliente.py:21`) e mudá-la quebra o modo offline; onde guardar o segredo | `CIENTO_OFFLINE=1` + `diff` dos 3 comandos contra `caracterizacao/antes_*` (idêntico); online, ingestão curta chegando à pág. 2 |
+| 2 | `last_known_institution` → `last_known_institutions[0]` em `instituicoes.py:10` (singular descontinuado, doc *deprecations*) | Parece mecânica, mas é decisão humana: com várias afiliações, escolher `[0]` muda o significado (ordem não garantida) | Caracterização não cobre `autores`: comparar `SELECT * FROM autores` antes/depois; cache só tem o singular, então testar com JSON novo |
+| 3 | `concepts.id` → `topics.id`, `/concepts` → `/topics`, `conceito_padrao` → ID de topic (`ingest.py:7`, `:48`; `config.ini:9`) | Decisão humana: não há mapeamento 1:1 concept→topic; muda o corpus, os relatórios e o CSV do parceiro | `diff` contra a caracterização: cada diferença explicada e aprovada pelo parceiro (colunas/ordem do CSV fixas, `exporta_parceiro.py:7`) |
 
-**Limite da leitura e condição para reabrir uma resposta:** Um cron externo ao repositório pode rodar o rodar_tudo.sh às 03:00. O código não mostra isso, só o comentário. Reabrir se aparecer configuração de cron, CI ou de outro sistema que chame jobs.py.
+**Limite da leitura e condição para reabrir uma resposta:** a doc não fala de `per-page`, `publication_year` nem dos campos de work/author usados; o cache só tem o formato antigo e nada foi testado online. Ficam fora: remover `mailto` (ignorado, mas mudar a URL invalida o cache), `concepts[0]` → `primary_topic` e `x_concepts` → topics. Reabrir se uma chamada real com chave mostrar campos diferentes, se a doc der data de remoção de Concepts/`x_concepts` ou se o parceiro mudar a planilha.
 
-**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: ___; tarefa delegada e contexto: ___; trecho aproveitado: ___; minha verificação/intervenção: ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: Claude Code Opus 5.5; tarefa delegada e contexto: código legado, acesso à api, enunciado, roteiro de resolução disponibilizado pelo professor foram disponibilizados como contexto, respostas das perguntas em modo plan, rascunho do plano de implementação da migração; trecho aproveitado: respostas das perguntas resumidas, plano de implementação, texto para limites; minha verificação/intervenção: Revisão de respostas, execução de comandos de busca para refutar afirmações, revisão do plano, verificação da docummentação oficial. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
 
-**Revisão:** [ ] cinco respostas com trecho; [ ] uma refutação; [ ] caracterização; [ ] plano em fatias; [ ] até uma página.
+**Revisão:** [X] cinco respostas com trecho; [X] uma refutação; [X] caracterização; [X] plano em fatias; [X] até uma página.
